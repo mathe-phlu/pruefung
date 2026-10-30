@@ -41,7 +41,7 @@ main{flex:1;min-height:0;display:grid;grid-template-columns:auto 1fr;gap:calc(2.
 .ring svg{width:100%;height:100%;transform:rotate(-90deg)}
 .ring circle{fill:none;stroke-width:7}
 .ring .bahn{stroke:var(--creme)}
-.ring .rest{stroke:var(--gruen);stroke-linecap:round;transition:stroke-dashoffset .5s linear,stroke .5s}
+.ring .rest{stroke:var(--gruen);stroke-linecap:round;transition:stroke-dashoffset .5s linear,stroke-dasharray .5s linear,stroke .5s}
 .ring .zahl{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
 .ring .zahl b{font-size:calc(11 * var(--u));font-weight:600;font-variant-numeric:tabular-nums;line-height:1}
 .ring .zahl span{font-family:var(--hand);font-size:calc(3 * var(--u));color:var(--matt);margin-top:calc(.6 * var(--u))}
@@ -52,7 +52,8 @@ main{flex:1;min-height:0;display:grid;grid-template-columns:auto 1fr;gap:calc(2.
 .knoepfe button:hover{border-color:var(--tinte)}
 .knoepfe .start{background:var(--gruen);color:#fff;border-color:var(--gruen);min-width:calc(12 * var(--u))}
 /* Mehrere Uhren (verschiedene Dauern): kleiner, nebeneinander, darunter gross, wen sie betreffen */
-body.mehrere .timer{width:calc(33 * var(--u));padding:calc(2 * var(--u)) calc(1.2 * var(--u) * 16 / 9);gap:calc(1.4 * var(--u))}
+body.mehrere .timer{width:calc(33 * var(--u));padding:calc(2 * var(--u)) calc(1.2 * var(--u) * 16 / 9);gap:calc(1.4 * var(--u));justify-content:flex-start;padding-top:calc(10 * var(--u))}
+/* Die Ringe stehen so auf gleicher Hoehe, auch wenn unter einer Uhr mehr Kuerzel stehen. */
 body.mehrere .ring{width:calc(28 * var(--u));height:calc(28 * var(--u))}
 body.mehrere .ring .zahl b{font-size:calc(6.6 * var(--u))}
 body.mehrere .ring .zahl span{font-size:calc(2.4 * var(--u))}
@@ -61,23 +62,17 @@ body.mehrere .knoepfe button{font-size:calc(2.1 * var(--u));padding:calc(.8 * va
 body.mehrere .knoepfe .start{min-width:calc(8 * var(--u))}
 .wer{display:flex;flex-wrap:wrap;justify-content:center;gap:calc(.6 * var(--u)) calc(1.2 * var(--u))}
 .oben{display:flex;gap:calc(2.4 * var(--u));min-height:0}
-/* Drei Uhren: eine Reihe oben (Uhr links, Kuerzel rechts daneben), darunter die ganze Breite fuer Infos */
-body.drei main{grid-template-columns:1fr;grid-template-rows:auto 1fr}
-body.drei .uhren{flex:1}
-body.drei .timer{flex:1;width:auto;display:grid;grid-template-columns:auto 1fr;grid-template-rows:1fr auto;
-   align-items:center;justify-items:start;column-gap:calc(1.6 * var(--u) * 16 / 9);row-gap:calc(.8 * var(--u));padding:calc(1.6 * var(--u)) calc(1.4 * var(--u) * 16 / 9)}
-body.drei .ring{width:calc(23 * var(--u));height:calc(23 * var(--u));grid-row:1 / 3}
+/* Drei und mehr Uhren: links im Raster 2x2 (Rike, 30.10.2026). Schmale Karten, die Kuerzel unter dem Ring,
+   die Knoepfe nur beim Darueberfahren ueber dem unteren Rand; rechts bleibt so viel Platz wie moeglich. */
+body.drei .uhren{display:grid;grid-template-columns:repeat(2,auto);grid-auto-rows:1fr;gap:calc(2.4 * var(--u))}
+body.drei .timer{width:auto;position:relative;padding:calc(2.4 * var(--u)) calc(1.2 * var(--u) * 16 / 9) calc(1.6 * var(--u));gap:calc(1.2 * var(--u))}
+body.drei .ring{width:calc(23 * var(--u));height:calc(23 * var(--u))}
 body.drei .ring .zahl b{font-size:calc(5.6 * var(--u))}
 body.drei .ring .zahl span{font-size:calc(2.1 * var(--u))}
-body.drei .wer{flex-direction:column;align-items:flex-start;justify-content:center}
-body.drei .wer span{font-size:calc(3.2 * var(--u))}
-body.drei .knoepfe{flex-wrap:wrap;max-width:calc(18 * var(--u))}
-body.drei .zeit{flex-direction:column;align-items:flex-start;justify-content:center;gap:calc(1 * var(--u));padding:calc(1.6 * var(--u)) calc(1.6 * var(--u) * 16 / 9)}
-body.drei .zeit .jetzt{font-size:calc(8 * var(--u))}
-body.drei .zeit .slot{text-align:left;font-size:calc(3 * var(--u))}
-body.drei .zeit .slot b{font-size:calc(2.8 * var(--u))}
-body.drei .infos ul{display:block;columns:2;column-gap:calc(3 * var(--u) * 16 / 9)}
-body.drei .infos li{break-inside:avoid;margin-bottom:calc(1.4 * var(--u) * var(--s))}
+body.drei .wer{max-width:calc(25 * var(--u))}
+body.drei .wer span{font-size:calc(3 * var(--u))}
+body.drei .knoepfe{position:absolute;left:0;right:0;bottom:calc(1 * var(--u));justify-content:center}
+
 .wer span{font-weight:600;font-size:calc(3.4 * var(--u));line-height:1.1;color:var(--m);border-bottom:calc(.5 * var(--u)) solid var(--m)}
 /* rechte Spalte: alles in sh, damit sie als Ganzes schrumpfen kann */
 .rechts{display:flex;flex-direction:column;gap:calc(2.4 * var(--u) * var(--s));min-height:0;min-width:0}
@@ -87,7 +82,7 @@ body.drei .infos li{break-inside:avoid;margin-bottom:calc(1.4 * var(--u) * var(-
 .zeit .slot b{font-family:var(--druck);font-weight:600;color:var(--tinte);font-size:calc(3.2 * var(--u) * var(--s))}
 .platz{background:var(--creme);border-radius:16px;padding:calc(2 * var(--u) * var(--s)) calc(2 * var(--u) * 16 / 9);font-size:calc(3.9 * var(--u) * var(--s));line-height:1.3}
 .platz b{font-weight:600}
-.infos{display:grid;gap:calc(2.4 * var(--u) * var(--s));flex:1;min-height:0;grid-auto-flow:column;grid-auto-columns:1fr}
+.infos{display:grid;gap:calc(2.4 * var(--u) * var(--s));flex:1;min-height:0;grid-template-columns:repeat(auto-fit,minmax(min(100%,calc(34 * var(--u))),1fr));grid-auto-rows:1fr}
 .infos .karte{display:flex;flex-direction:column;border-top:7px solid var(--m);min-width:0}
 .infos h2{font-family:var(--hand);font-weight:400;font-size:calc(4.8 * var(--u) * var(--s));margin:0 0 calc(1.4 * var(--u) * var(--s));line-height:1;color:var(--m)}
 ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:calc(1.4 * var(--u) * var(--s))}
@@ -97,7 +92,10 @@ li.nein::before{content:"✗";color:var(--rot)}
 li.hinweis::before{content:"→";color:var(--matt)}
 li b{font-weight:600}
 /* Ab drei Pruefungen: ein Kasten fuer alle, Besonderes mit dem Kuerzel markiert */
-.infos .karte.alle{--m:var(--matt)}
+.infos.verteilt{grid-auto-rows:auto;align-content:start}
+.infos .alle{grid-column:1 / -1}
+.infos .alle h2{color:var(--tinte)}
+.infos .alle ul{flex-direction:row;flex-wrap:wrap;column-gap:calc(3 * var(--u) * 16 / 9)}
 li .tag{font-weight:600;color:#fff;background:var(--m);border-radius:6px;padding:0 .35em;margin-right:.35em;font-size:.82em;white-space:nowrap}
 /* Pruefungen im Block, ab drei Pruefungen mit einer gemeinsamen Uhr */
 .module{display:flex;flex-wrap:wrap;gap:calc(1 * var(--u) * var(--s)) calc(1 * var(--u) * 16 / 9)}
@@ -166,9 +164,9 @@ button.x:hover{color:var(--rot)}
 </div>
 </main>
 <dialog id="dialog"><form method="dialog" id="formular"></form></dialog>
-<script type="application/json" id="vordrucke">{"teil-a-hs26":{"name":"Teil A HS26 · MA01.03 / MA01.07","einstellungen":{"titel":"Prüfung Teil A","module":[{"id":"m1","kuerzel":"MA01.03","name":"Form und Raum","farbe":"#0065a9","hilfsmittel":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}]},{"id":"m2","kuerzel":"MA01.07","name":"Daten und Zufall","farbe":"#9867a5","hilfsmittel":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"ja","text":"Taschenrechner"},{"art":"ja","text":"zusätzlich: Formelblatt A4, einseitig, handgeschrieben"}]}],"bloecke":[{"datum":"2026-10-30","von":"10:15","bis":"11:45","dauer":null,"module":["m1"]},{"datum":"2026-10-30","von":"13:15","bis":"14:45","dauer":null,"module":["m1"]},{"datum":"2026-10-30","von":"15:15","bis":"16:45","dauer":null,"module":["m1","m2"]},{"datum":"2026-11-03","von":"08:15","bis":"09:45","dauer":null,"module":["m1"]}],"satzEins":"Setzen Sie sich an einen Platz, an dem **Prüfungsblätter liegen**.","satzMehrere":"Setzen Sie sich an einen Platz mit den **passenden Prüfungsblättern**. {module} sitzen abwechselnd.","kaertchen":["Jedes Blatt: [Name · A1 · S. 2/3]","Handy in die Tasche","Getränke und Snacks erlaubt"]}},"teil-b-hs26":{"name":"Teil B HS26 · MA01.03 / MA01.07","einstellungen":{"titel":"Prüfung Teil B","module":[{"id":"m1","kuerzel":"MA01.03","name":"Form und Raum","farbe":"#0065a9","hilfsmittel":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}]},{"id":"m2","kuerzel":"MA01.07","name":"Daten und Zufall","farbe":"#9867a5","hilfsmittel":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"ja","text":"Taschenrechner"},{"art":"ja","text":"zusätzlich: Formelblatt A4, einseitig, handgeschrieben"}]}],"bloecke":[{"datum":"2026-12-12","von":"09:15","bis":"10:45","dauer":null,"module":["m1"]},{"datum":"2026-12-17","von":"10:15","bis":"11:45","dauer":null,"module":["m2"]}],"satzEins":"Setzen Sie sich an einen Platz, an dem **Prüfungsblätter liegen**.","satzMehrere":"Setzen Sie sich an einen Platz mit den **passenden Prüfungsblättern**. {module} sitzen abwechselnd.","kaertchen":["Jedes Blatt: [Name · A1 · S. 2/3]","Handy in die Tasche","Getränke und Snacks erlaubt"]}},"leer":{"name":"Leere Vorlage","einstellungen":{"titel":"Prüfung","module":[{"id":"m1","kuerzel":"","name":"","farbe":"#0065a9","hilfsmittel":[]}],"bloecke":[{"datum":"","von":"","bis":"","dauer":null,"module":["m1"]}],"satzEins":"","satzMehrere":"","kaertchen":[]}}}</script>
-<script type="application/json" id="vorgabe">{"id":"teil-b-hs26-58b7a5a2","vordruck":"teil-b-hs26","einstellungen":{"titel":"Prüfung Teil B","module":[{"id":"m1","kuerzel":"MA01.03","name":"Form und Raum","farbe":"#0065a9","hilfsmittel":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}]},{"id":"m2","kuerzel":"MA01.07","name":"Daten und Zufall","farbe":"#9867a5","hilfsmittel":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"ja","text":"Taschenrechner"},{"art":"ja","text":"zusätzlich: Formelblatt A4, einseitig, handgeschrieben"}]}],"bloecke":[{"datum":"2026-12-12","von":"09:15","bis":"10:45","dauer":null,"module":["m1"]},{"datum":"2026-12-17","von":"10:15","bis":"11:45","dauer":null,"module":["m2"]}],"satzEins":"Setzen Sie sich an einen Platz, an dem **Prüfungsblätter liegen**.","satzMehrere":"Setzen Sie sich an einen Platz mit den **passenden Prüfungsblättern**. {module} sitzen abwechselnd.","kaertchen":["Jedes Blatt: [Name · A1 · S. 2/3]","Handy in die Tasche","Getränke und Snacks erlaubt"]}}</script>
-<script type="application/json" id="beispiele">[{"titel":"Nachprüfungen","module":[{"kuerzel":"Sek I a","name":"Sek I regulär A","farbe":"#0065a9","dauer":null,"hilfsmittel":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1a"}],"bloecke":[{"datum":"","von":"10:15","bis":"11:45","dauer":null,"module":["s1a"]}],"satzEins":"Setzen Sie sich an einen Platz, an dem **Prüfungsblätter liegen**.","satzMehrere":"Setzen Sie sich an einen Platz mit den **passenden Prüfungsblättern**. {module} sitzen abwechselnd.","kaertchen":["Jedes Blatt: [Name · A1 · S. 2/3]","Handy in die Tasche","Getränke und Snacks erlaubt"]},{"titel":"Nachprüfungen","module":[{"kuerzel":"Sek I a","name":"Sek I regulär A","farbe":"#0065a9","dauer":null,"hilfsmittel":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1a"},{"kuerzel":"Sek I b","name":"Sek I regulär B","farbe":"#9867a5","dauer":null,"hilfsmittel":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"ja","text":"Taschenrechner"},{"art":"ja","text":"zusätzlich: Formelblatt A4, einseitig, handgeschrieben"}],"id":"s1b"}],"bloecke":[{"datum":"","von":"10:15","bis":"11:45","dauer":null,"module":["s1a","s1b"]}],"satzEins":"Setzen Sie sich an einen Platz, an dem **Prüfungsblätter liegen**.","satzMehrere":"Setzen Sie sich an einen Platz mit den **passenden Prüfungsblättern**. {module} sitzen abwechselnd.","kaertchen":["Jedes Blatt: [Name · A1 · S. 2/3]","Handy in die Tasche","Getränke und Snacks erlaubt"]},{"titel":"Nachprüfungen","module":[{"kuerzel":"Sek I a","name":"Sek I regulär A","farbe":"#0065a9","dauer":null,"hilfsmittel":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1a"},{"kuerzel":"Sek I b","name":"Sek I regulär B","farbe":"#9867a5","dauer":null,"hilfsmittel":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"ja","text":"Taschenrechner"},{"art":"ja","text":"zusätzlich: Formelblatt A4, einseitig, handgeschrieben"}],"id":"s1b"},{"kuerzel":"GJ a","name":"Grundjahr","farbe":"#935100","dauer":60,"hilfsmittel":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"nein","text":"kein Taschenrechner"}],"id":"gja"}],"bloecke":[{"datum":"","von":"10:15","bis":"11:45","dauer":null,"module":["s1a","s1b","gja"]}],"satzEins":"Setzen Sie sich an einen Platz, an dem **Prüfungsblätter liegen**.","satzMehrere":"Setzen Sie sich an einen Platz mit den **passenden Prüfungsblättern**. {module} sitzen abwechselnd.","kaertchen":["Jedes Blatt: [Name · A1 · S. 2/3]","Handy in die Tasche","Getränke und Snacks erlaubt"]},{"titel":"Nachprüfungen","module":[{"kuerzel":"Sek I a","name":"Sek I regulär A","farbe":"#0065a9","dauer":null,"hilfsmittel":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1a"},{"kuerzel":"Sek I b","name":"Sek I regulär B","farbe":"#9867a5","dauer":null,"hilfsmittel":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"ja","text":"Taschenrechner"},{"art":"ja","text":"zusätzlich: Formelblatt A4, einseitig, handgeschrieben"}],"id":"s1b"},{"kuerzel":"Sek I c","name":"Sek I anderes Semester A","farbe":"#007d57","dauer":null,"hilfsmittel":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1c"},{"kuerzel":"Sek I d","name":"Sek I anderes Semester B","farbe":"#a6083d","dauer":null,"hilfsmittel":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"ja","text":"Taschenrechner"}],"id":"s1d"}],"bloecke":[{"datum":"","von":"10:15","bis":"11:45","dauer":null,"module":["s1a","s1b","s1c","s1d"]}],"satzEins":"Setzen Sie sich an einen Platz, an dem **Prüfungsblätter liegen**.","satzMehrere":"Setzen Sie sich an einen Platz mit den **passenden Prüfungsblättern**. {module} sitzen abwechselnd.","kaertchen":["Jedes Blatt: [Name · A1 · S. 2/3]","Handy in die Tasche","Getränke und Snacks erlaubt"]},{"titel":"Nachprüfungen","module":[{"kuerzel":"Sek I a","name":"Sek I regulär A","farbe":"#0065a9","dauer":null,"hilfsmittel":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1a"},{"kuerzel":"Sek I b","name":"Sek I regulär B","farbe":"#9867a5","dauer":null,"hilfsmittel":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"ja","text":"Taschenrechner"},{"art":"ja","text":"zusätzlich: Formelblatt A4, einseitig, handgeschrieben"}],"id":"s1b"},{"kuerzel":"Sek I c","name":"Sek I anderes Semester A","farbe":"#007d57","dauer":null,"hilfsmittel":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1c"},{"kuerzel":"Sek I d","name":"Sek I anderes Semester B","farbe":"#a6083d","dauer":null,"hilfsmittel":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"ja","text":"Taschenrechner"}],"id":"s1d"},{"kuerzel":"GJ a","name":"Grundjahr","farbe":"#935100","dauer":60,"hilfsmittel":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"nein","text":"kein Taschenrechner"}],"id":"gja"}],"bloecke":[{"datum":"","von":"10:15","bis":"11:45","dauer":null,"module":["s1a","s1b","s1c","s1d","gja"]}],"satzEins":"Setzen Sie sich an einen Platz, an dem **Prüfungsblätter liegen**.","satzMehrere":"Setzen Sie sich an einen Platz mit den **passenden Prüfungsblättern**. {module} sitzen abwechselnd.","kaertchen":["Jedes Blatt: [Name · A1 · S. 2/3]","Handy in die Tasche","Getränke und Snacks erlaubt"]},{"titel":"Nachprüfungen","module":[{"kuerzel":"Sek I a","name":"Sek I regulär A","farbe":"#0065a9","dauer":null,"hilfsmittel":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1a"},{"kuerzel":"Sek I b","name":"Sek I regulär B","farbe":"#9867a5","dauer":null,"hilfsmittel":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"ja","text":"Taschenrechner"},{"art":"ja","text":"zusätzlich: Formelblatt A4, einseitig, handgeschrieben"}],"id":"s1b"},{"kuerzel":"Sek I c","name":"Sek I anderes Semester A","farbe":"#007d57","dauer":null,"hilfsmittel":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1c"},{"kuerzel":"Sek I d","name":"Sek I anderes Semester B","farbe":"#a6083d","dauer":null,"hilfsmittel":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"ja","text":"Taschenrechner"}],"id":"s1d"},{"kuerzel":"GJ a","name":"Grundjahr","farbe":"#935100","dauer":60,"hilfsmittel":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"nein","text":"kein Taschenrechner"}],"id":"gja"},{"kuerzel":"Prim","name":"Primarstufe","farbe":"#2e7d32","dauer":45,"hilfsmittel":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"ja","text":"Taschenrechner"}],"id":"pri"}],"bloecke":[{"datum":"","von":"10:15","bis":"11:45","dauer":null,"module":["s1a","s1b","s1c","s1d","gja","pri"]}],"satzEins":"Setzen Sie sich an einen Platz, an dem **Prüfungsblätter liegen**.","satzMehrere":"Setzen Sie sich an einen Platz mit den **passenden Prüfungsblättern**. {module} sitzen abwechselnd.","kaertchen":["Jedes Blatt: [Name · A1 · S. 2/3]","Handy in die Tasche","Getränke und Snacks erlaubt"]},{"titel":"Nachprüfungen","module":[{"kuerzel":"Sek I a","name":"Sek I regulär A","farbe":"#0065a9","dauer":null,"hilfsmittel":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1a"},{"kuerzel":"Sek I b","name":"Sek I regulär B","farbe":"#9867a5","dauer":null,"hilfsmittel":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"ja","text":"Taschenrechner"},{"art":"ja","text":"zusätzlich: Formelblatt A4, einseitig, handgeschrieben"}],"id":"s1b"},{"kuerzel":"Sek I c","name":"Sek I anderes Semester A","farbe":"#007d57","dauer":null,"hilfsmittel":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1c"},{"kuerzel":"Sek I d","name":"Sek I anderes Semester B","farbe":"#a6083d","dauer":null,"hilfsmittel":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"ja","text":"Taschenrechner"}],"id":"s1d"},{"kuerzel":"GJ a","name":"Grundjahr","farbe":"#935100","dauer":60,"hilfsmittel":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"nein","text":"kein Taschenrechner"}],"id":"gja"},{"kuerzel":"GJ b","name":"Grundjahr, anderes Semester","farbe":"#6a1b9a","dauer":60,"hilfsmittel":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"nein","text":"kein Taschenrechner"}],"id":"gjb"},{"kuerzel":"Prim","name":"Primarstufe","farbe":"#2e7d32","dauer":45,"hilfsmittel":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"ja","text":"Taschenrechner"}],"id":"pri"}],"bloecke":[{"datum":"","von":"10:15","bis":"11:45","dauer":null,"module":["s1a","s1b","s1c","s1d","gja","gjb","pri"]}],"satzEins":"Setzen Sie sich an einen Platz, an dem **Prüfungsblätter liegen**.","satzMehrere":"Setzen Sie sich an einen Platz mit den **passenden Prüfungsblättern**. {module} sitzen abwechselnd.","kaertchen":["Jedes Blatt: [Name · A1 · S. 2/3]","Handy in die Tasche","Getränke und Snacks erlaubt"]}]</script>
+<script type="application/json" id="vordrucke">{"teil-a-hs26":{"name":"Teil A HS26 · MA01.03 / MA01.07","einstellungen":{"titel":"Prüfung Teil A","alle":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"ja","text":"Taschenrechner"}],"module":[{"id":"m1","kuerzel":"MA01.03","name":"Form und Raum","farbe":"#0065a9","hilfsmittel":[{"art":"nein","text":"keine Unterlagen"}],"dauer":null},{"id":"m2","kuerzel":"MA01.07","name":"Daten und Zufall","farbe":"#9867a5","hilfsmittel":[{"art":"ja","text":"zusätzlich: Formelblatt A4, einseitig, handgeschrieben"}],"dauer":null}],"bloecke":[{"datum":"2026-10-30","von":"10:15","bis":"11:45","dauer":null,"module":["m1"]},{"datum":"2026-10-30","von":"13:15","bis":"14:45","dauer":null,"module":["m1"]},{"datum":"2026-10-30","von":"15:15","bis":"16:45","dauer":null,"module":["m1","m2"]},{"datum":"2026-11-03","von":"08:15","bis":"09:45","dauer":null,"module":["m1"]}],"satzEins":"Setzen Sie sich an einen Platz, an dem **Prüfungsblätter liegen**.","satzMehrere":"Setzen Sie sich an einen Platz mit den **passenden Prüfungsblättern**. {module} sitzen abwechselnd.","kaertchen":["Jedes Blatt: [Name · A1 · S. 2/3]","Handy in die Tasche","Getränke und Snacks erlaubt"]}},"teil-b-hs26":{"name":"Teil B HS26 · MA01.03 / MA01.07","einstellungen":{"titel":"Prüfung Teil B","alle":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"ja","text":"Taschenrechner"}],"module":[{"id":"m1","kuerzel":"MA01.03","name":"Form und Raum","farbe":"#0065a9","hilfsmittel":[{"art":"nein","text":"keine Unterlagen"}],"dauer":null},{"id":"m2","kuerzel":"MA01.07","name":"Daten und Zufall","farbe":"#9867a5","hilfsmittel":[{"art":"ja","text":"zusätzlich: Formelblatt A4, einseitig, handgeschrieben"}],"dauer":null}],"bloecke":[{"datum":"2026-12-12","von":"09:15","bis":"10:45","dauer":null,"module":["m1"]},{"datum":"2026-12-17","von":"10:15","bis":"11:45","dauer":null,"module":["m2"]}],"satzEins":"Setzen Sie sich an einen Platz, an dem **Prüfungsblätter liegen**.","satzMehrere":"Setzen Sie sich an einen Platz mit den **passenden Prüfungsblättern**. {module} sitzen abwechselnd.","kaertchen":["Jedes Blatt: [Name · A1 · S. 2/3]","Handy in die Tasche","Getränke und Snacks erlaubt"]}},"leer":{"name":"Leere Vorlage","einstellungen":{"titel":"Prüfung","alle":[],"module":[{"id":"m1","kuerzel":"","name":"","farbe":"#0065a9","hilfsmittel":[],"dauer":null}],"bloecke":[{"datum":"","von":"","bis":"","dauer":null,"module":["m1"]}],"satzEins":"","satzMehrere":"","kaertchen":[]}}}</script>
+<script type="application/json" id="vorgabe">{"id":"teil-b-hs26-262d3b4d","vordruck":"teil-b-hs26","einstellungen":{"titel":"Prüfung Teil B","alle":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"ja","text":"Taschenrechner"}],"module":[{"id":"m1","kuerzel":"MA01.03","name":"Form und Raum","farbe":"#0065a9","hilfsmittel":[{"art":"nein","text":"keine Unterlagen"}],"dauer":null},{"id":"m2","kuerzel":"MA01.07","name":"Daten und Zufall","farbe":"#9867a5","hilfsmittel":[{"art":"ja","text":"zusätzlich: Formelblatt A4, einseitig, handgeschrieben"}],"dauer":null}],"bloecke":[{"datum":"2026-12-12","von":"09:15","bis":"10:45","dauer":null,"module":["m1"]},{"datum":"2026-12-17","von":"10:15","bis":"11:45","dauer":null,"module":["m2"]}],"satzEins":"Setzen Sie sich an einen Platz, an dem **Prüfungsblätter liegen**.","satzMehrere":"Setzen Sie sich an einen Platz mit den **passenden Prüfungsblättern**. {module} sitzen abwechselnd.","kaertchen":["Jedes Blatt: [Name · A1 · S. 2/3]","Handy in die Tasche","Getränke und Snacks erlaubt"]}}</script>
+<script type="application/json" id="beispiele">[{"titel":"Nachprüfungen","alle":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"}],"module":[{"kuerzel":"Sek I a","name":"Sek I regulär A","farbe":"#0065a9","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1a"}],"bloecke":[{"datum":"","von":"10:15","bis":"11:45","dauer":null,"module":["s1a"]}],"satzEins":"Setzen Sie sich an einen Platz, an dem **Prüfungsblätter liegen**.","satzMehrere":"Setzen Sie sich an einen Platz mit den **passenden Prüfungsblättern**. {module} sitzen abwechselnd.","kaertchen":["Jedes Blatt: [Name · A1 · S. 2/3]","Handy in die Tasche","Getränke und Snacks erlaubt"]},{"titel":"Nachprüfungen","alle":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"}],"module":[{"kuerzel":"Sek I a","name":"Sek I regulär A","farbe":"#0065a9","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1a"},{"kuerzel":"Sek I b","name":"Sek I regulär B","farbe":"#9867a5","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"ja","text":"zusätzlich: Formelblatt A4, einseitig, handgeschrieben"}],"id":"s1b"}],"bloecke":[{"datum":"","von":"10:15","bis":"11:45","dauer":null,"module":["s1a","s1b"]}],"satzEins":"Setzen Sie sich an einen Platz, an dem **Prüfungsblätter liegen**.","satzMehrere":"Setzen Sie sich an einen Platz mit den **passenden Prüfungsblättern**. {module} sitzen abwechselnd.","kaertchen":["Jedes Blatt: [Name · A1 · S. 2/3]","Handy in die Tasche","Getränke und Snacks erlaubt"]},{"titel":"Nachprüfungen","alle":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"}],"module":[{"kuerzel":"Sek I a","name":"Sek I regulär A","farbe":"#0065a9","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1a"},{"kuerzel":"Sek I b","name":"Sek I regulär B","farbe":"#9867a5","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"ja","text":"zusätzlich: Formelblatt A4, einseitig, handgeschrieben"}],"id":"s1b"},{"kuerzel":"GJ a","name":"Grundjahr","farbe":"#935100","dauer":60,"hilfsmittel":[{"art":"nein","text":"kein Taschenrechner"}],"id":"gja"}],"bloecke":[{"datum":"","von":"10:15","bis":"11:45","dauer":null,"module":["s1a","s1b","gja"]}],"satzEins":"Setzen Sie sich an einen Platz, an dem **Prüfungsblätter liegen**.","satzMehrere":"Setzen Sie sich an einen Platz mit den **passenden Prüfungsblättern**. {module} sitzen abwechselnd.","kaertchen":["Jedes Blatt: [Name · A1 · S. 2/3]","Handy in die Tasche","Getränke und Snacks erlaubt"]},{"titel":"Nachprüfungen","alle":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"}],"module":[{"kuerzel":"Sek I a","name":"Sek I regulär A","farbe":"#0065a9","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1a"},{"kuerzel":"Sek I b","name":"Sek I regulär B","farbe":"#9867a5","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"ja","text":"zusätzlich: Formelblatt A4, einseitig, handgeschrieben"}],"id":"s1b"},{"kuerzel":"Sek I c","name":"Sek I anderes Semester A","farbe":"#007d57","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1c"},{"kuerzel":"Sek I d","name":"Sek I anderes Semester B","farbe":"#a6083d","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"}],"id":"s1d"}],"bloecke":[{"datum":"","von":"10:15","bis":"11:45","dauer":null,"module":["s1a","s1b","s1c","s1d"]}],"satzEins":"Setzen Sie sich an einen Platz, an dem **Prüfungsblätter liegen**.","satzMehrere":"Setzen Sie sich an einen Platz mit den **passenden Prüfungsblättern**. {module} sitzen abwechselnd.","kaertchen":["Jedes Blatt: [Name · A1 · S. 2/3]","Handy in die Tasche","Getränke und Snacks erlaubt"]},{"titel":"Nachprüfungen","alle":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"}],"module":[{"kuerzel":"Sek I a","name":"Sek I regulär A","farbe":"#0065a9","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1a"},{"kuerzel":"Sek I b","name":"Sek I regulär B","farbe":"#9867a5","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"ja","text":"zusätzlich: Formelblatt A4, einseitig, handgeschrieben"}],"id":"s1b"},{"kuerzel":"Sek I c","name":"Sek I anderes Semester A","farbe":"#007d57","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1c"},{"kuerzel":"Sek I d","name":"Sek I anderes Semester B","farbe":"#a6083d","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"}],"id":"s1d"},{"kuerzel":"GJ a","name":"Grundjahr","farbe":"#935100","dauer":60,"hilfsmittel":[{"art":"nein","text":"kein Taschenrechner"}],"id":"gja"}],"bloecke":[{"datum":"","von":"10:15","bis":"11:45","dauer":null,"module":["s1a","s1b","s1c","s1d","gja"]}],"satzEins":"Setzen Sie sich an einen Platz, an dem **Prüfungsblätter liegen**.","satzMehrere":"Setzen Sie sich an einen Platz mit den **passenden Prüfungsblättern**. {module} sitzen abwechselnd.","kaertchen":["Jedes Blatt: [Name · A1 · S. 2/3]","Handy in die Tasche","Getränke und Snacks erlaubt"]},{"titel":"Nachprüfungen","alle":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"}],"module":[{"kuerzel":"Sek I a","name":"Sek I regulär A","farbe":"#0065a9","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1a"},{"kuerzel":"Sek I b","name":"Sek I regulär B","farbe":"#9867a5","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"ja","text":"zusätzlich: Formelblatt A4, einseitig, handgeschrieben"}],"id":"s1b"},{"kuerzel":"Sek I c","name":"Sek I anderes Semester A","farbe":"#007d57","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1c"},{"kuerzel":"Sek I d","name":"Sek I anderes Semester B","farbe":"#a6083d","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"}],"id":"s1d"},{"kuerzel":"GJ a","name":"Grundjahr","farbe":"#935100","dauer":60,"hilfsmittel":[{"art":"nein","text":"kein Taschenrechner"}],"id":"gja"},{"kuerzel":"Prim","name":"Primarstufe","farbe":"#2e7d32","dauer":45,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"}],"id":"pri"}],"bloecke":[{"datum":"","von":"10:15","bis":"11:45","dauer":null,"module":["s1a","s1b","s1c","s1d","gja","pri"]}],"satzEins":"Setzen Sie sich an einen Platz, an dem **Prüfungsblätter liegen**.","satzMehrere":"Setzen Sie sich an einen Platz mit den **passenden Prüfungsblättern**. {module} sitzen abwechselnd.","kaertchen":["Jedes Blatt: [Name · A1 · S. 2/3]","Handy in die Tasche","Getränke und Snacks erlaubt"]},{"titel":"Nachprüfungen","alle":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"}],"module":[{"kuerzel":"Sek I a","name":"Sek I regulär A","farbe":"#0065a9","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1a"},{"kuerzel":"Sek I b","name":"Sek I regulär B","farbe":"#9867a5","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"ja","text":"zusätzlich: Formelblatt A4, einseitig, handgeschrieben"}],"id":"s1b"},{"kuerzel":"Sek I c","name":"Sek I anderes Semester A","farbe":"#007d57","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1c"},{"kuerzel":"Sek I d","name":"Sek I anderes Semester B","farbe":"#a6083d","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"}],"id":"s1d"},{"kuerzel":"GJ a","name":"Grundjahr","farbe":"#935100","dauer":60,"hilfsmittel":[{"art":"nein","text":"kein Taschenrechner"}],"id":"gja"},{"kuerzel":"GJ b","name":"Grundjahr, anderes Semester","farbe":"#6a1b9a","dauer":60,"hilfsmittel":[{"art":"nein","text":"kein Taschenrechner"}],"id":"gjb"},{"kuerzel":"Prim","name":"Primarstufe","farbe":"#2e7d32","dauer":45,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"}],"id":"pri"}],"bloecke":[{"datum":"","von":"10:15","bis":"11:45","dauer":null,"module":["s1a","s1b","s1c","s1d","gja","gjb","pri"]}],"satzEins":"Setzen Sie sich an einen Platz, an dem **Prüfungsblätter liegen**.","satzMehrere":"Setzen Sie sich an einen Platz mit den **passenden Prüfungsblättern**. {module} sitzen abwechselnd.","kaertchen":["Jedes Blatt: [Name · A1 · S. 2/3]","Handy in die Tasche","Getränke und Snacks erlaubt"]},{"titel":"Nachprüfungen","alle":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"}],"module":[{"kuerzel":"Sek I a","name":"Sek I regulär A","farbe":"#0065a9","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1a"},{"kuerzel":"Sek I b","name":"Sek I regulär B","farbe":"#9867a5","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"ja","text":"zusätzlich: Formelblatt A4, einseitig, handgeschrieben"}],"id":"s1b"},{"kuerzel":"Sek I c","name":"Sek I anderes Semester A","farbe":"#007d57","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1c"},{"kuerzel":"Sek I d","name":"Sek I anderes Semester B","farbe":"#a6083d","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"}],"id":"s1d"},{"kuerzel":"GJ a","name":"Grundjahr","farbe":"#935100","dauer":60,"hilfsmittel":[{"art":"nein","text":"kein Taschenrechner"}],"id":"gja"},{"kuerzel":"Prim","name":"Primarstufe","farbe":"#2e7d32","dauer":45,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"}],"id":"pri"},{"kuerzel":"Prim b","name":"Primarstufe, anderes Semester","farbe":"#00838f","dauer":30,"hilfsmittel":[{"art":"nein","text":"kein Taschenrechner"}],"id":"prb"}],"bloecke":[{"datum":"","von":"10:15","bis":"11:45","dauer":null,"module":["s1a","s1b","s1c","s1d","gja","pri","prb"]}],"satzEins":"Setzen Sie sich an einen Platz, an dem **Prüfungsblätter liegen**.","satzMehrere":"Setzen Sie sich an einen Platz mit den **passenden Prüfungsblättern**. {module} sitzen abwechselnd.","kaertchen":["Jedes Blatt: [Name · A1 · S. 2/3]","Handy in die Tasche","Getränke und Snacks erlaubt"]}]</script>
 <script>
 // Die Seite, wie sie geladen wurde - vor jedem Rendern abgegriffen. Daraus entsteht «Als Datei speichern».
 const ROH = '<!doctype html>\n' + document.documentElement.outerHTML;
@@ -182,16 +180,27 @@ const kopie = o => JSON.parse(JSON.stringify(o));
 // ---------- Einstellungen laden und merken ----------
 // Gespeichert wird mit der ID der Vorgabe: Auf file:// teilen sich alle Dateien denselben Speicher,
 // eine verschickte Datei mit neuer Vorgabe soll nicht von alten Einstellungen ueberschrieben werden.
+// Seit 30.10.2026 stehen Hilfsmittel, die fuer alle gelten, einmal in E.alle; beim Modul nur noch
+// das Besondere. Aeltere Einstellungen hatten alles beim Modul: Gemeinsames wird herausgezogen.
+function auffrischen(e){
+  if (e.alle) return e;
+  const k = h => h.art + '|' + h.text.trim().toLowerCase();
+  const erstes = (e.module[0]?.hilfsmittel || []).filter(h => h.text.trim());
+  e.alle = e.module.length > 1 ? erstes.filter(h => e.module.every(m => m.hilfsmittel.some(x => k(x) === k(h)))) : [];
+  const g = new Set(e.alle.map(k));
+  e.module.forEach(m => m.hilfsmittel = m.hilfsmittel.filter(h => !g.has(k(h))));
+  return e;
+}
 function laden(){
   try {
     const g = JSON.parse(localStorage.getItem(SPEICHER));
-    if (g && g.vorgabeId === VORGABE.id && g.einstellungen) return g.einstellungen;
+    if (g && g.vorgabeId === VORGABE.id && g.einstellungen) return auffrischen(g.einstellungen);
   } catch (e) {}
-  return kopie(VORGABE.einstellungen);
+  return auffrischen(kopie(VORGABE.einstellungen));
 }
 // Beispielmodus (Beispiele.html): ein erfundener Fall, nichts wird gemerkt.
 const BEISPIEL = json('beispiele')[new URLSearchParams(location.search).get('beispiel') - 1];
-let E = BEISPIEL ? kopie(BEISPIEL) : laden();
+let E = BEISPIEL ? auffrischen(kopie(BEISPIEL)) : laden();
 function merken(){
   if (BEISPIEL) return;
   try { localStorage.setItem(SPEICHER, JSON.stringify({vorgabeId: VORGABE.id, einstellungen: E})); $('meldung') && ($('meldung').textContent = ''); }
@@ -232,6 +241,12 @@ function dauernIm(i){
 // Aendert sich das, werden die Uhren neu gebaut (nur wenn keine laeuft).
 const uhrenSchluessel = i => JSON.stringify([i, dauer(E.bloecke[i]), imBlock(i).map(m => [m.kuerzel, m.farbe, modulDauer(m, E.bloecke[i])])]);
 
+// Ein Block ist zu Ende, wenn «Bis» erreicht ist und auch die laengste Pruefung darin vorbei ist.
+function blockEnde(i){
+  const b = E.bloecke[i], bis = minuten(b.bis) ?? 24*60, von = minuten(b.von);
+  return von === null ? bis : Math.max(bis, von + Math.max(...dauernIm(i)));
+}
+
 let gewaehlt = null;   // Index des per Taste gewaehlten Blocks, null = nach Uhrzeit
 function aktuellerBlock(){
   const B = E.bloecke;
@@ -243,7 +258,7 @@ function aktuellerBlock(){
   const heutige = alle.filter(i => !B[i].datum || B[i].datum === heute);
   // Der Block, der gerade laeuft oder als naechster kommt. Nach dem letzten des Tages kommt der
   // naechste an einem spaeteren Tag; gibt es keinen, bleibt der letzte stehen.
-  const offen = heutige.find(i => m < (minuten(B[i].bis) ?? 24*60));
+  const offen = heutige.find(i => m < blockEnde(i));
   if (offen !== undefined) return offen;
   return alle.find(i => B[i].datum > heute) ?? heutige.at(-1) ?? alle.at(-1);
 }
@@ -280,38 +295,29 @@ function zeichneSeite(){
   $('platz').innerHTML = auszeichnen(satz).replace('{module}', esc(liste(mods.map(m => m.kuerzel || m.name))));
   $('platz').classList.toggle('leer', !satz.trim());
 
-  const eintraege = m => m.hilfsmittel.filter(h => h.text.trim());
-  const li = (h, tag) => `<li class="${h.art}">${tag || ''}${auszeichnen(h.text)}</li>`;
-  if (viele) {
-    // Ein Kasten: was alle gemeinsam haben, einmal; der Rest mit dem Kuerzel der Pruefung davor.
-    const schluessel = h => h.art + '|' + h.text.trim().toLowerCase();
-    const gemeinsam = eintraege(mods[0]).filter(h => mods.every(m => eintraege(m).some(x => schluessel(x) === schluessel(h))));
-    const g = new Set(gemeinsam.map(schluessel));
-    // Gleiche Sonderregel bei mehreren Pruefungen: eine Zeile, mehrere Kuerzel davor.
-    const gruppen = new Map();
-    for (const m of mods) for (const h of eintraege(m)) {
-      const k = schluessel(h);
-      if (g.has(k)) continue;
-      if (!gruppen.has(k)) gruppen.set(k, {h, tags: []});
-      gruppen.get(k).tags.push(`<span class="tag" style="--m:${esc(m.farbe)}">${esc(m.kuerzel || m.name)}</span>`);
-    }
-    const besonders = [...gruppen.values()].map(({h, tags}) => li(h, tags.join('')));
-    $('infos').innerHTML = gemeinsam.length + besonders.length ? `
-      <section class="karte alle"><h2>Hilfsmittel</h2><ul>${gemeinsam.map(h => li(h)).join('')}${besonders.join('')}</ul></section>` : '';
+  const voll = l => (l || []).filter(h => h.text.trim());
+  const li = h => `<li class="${h.art}">${auszeichnen(h.text)}</li>`;
+  const kasten = (titel, farbe, l, klasse = '') =>
+    `<section class="karte ${klasse}" style="--m:${esc(farbe)}"><h2>${esc(titel)}</h2><ul>${l.map(li).join('')}</ul></section>`;
+  $('infos').classList.toggle('verteilt', mods.length > 1);
+  if (mods.length < 2) {
+    const m = mods[0], l = [...voll(E.alle), ...voll(m?.hilfsmittel)];
+    $('infos').innerHTML = l.length ? kasten('Hilfsmittel', m?.farbe || 'var(--matt)', l) : '';
   } else {
-    $('infos').innerHTML = mods.filter(m => eintraege(m).length).map(m => `
-      <section class="karte" style="--m:${esc(m.farbe)}"><h2>${mods.length > 1 ? esc([m.kuerzel, m.name].filter(Boolean).join(' ')) : 'Hilfsmittel'}</h2><ul>
-        ${eintraege(m).map(h => li(h)).join('')}
-      </ul></section>`).join('');
+    // Was fuer alle gilt, steht einmal; je Pruefung ein Kasten mit ihren Besonderheiten.
+    $('infos').innerHTML = (voll(E.alle).length ? kasten('Für alle', 'var(--tinte)', voll(E.alle), 'alle') : '')
+      + mods.filter(m => voll(m.hilfsmittel).length)
+            .map(m => kasten([m.kuerzel, m.name].filter(Boolean).join(' '), m.farbe, voll(m.hilfsmittel))).join('');
   }
 
   $('fuss').innerHTML = E.kaertchen.filter(k => k.trim()).map(k => `<span>${auszeichnen(k)}</span>`).join('');
   $('fuss').classList.toggle('leer', !E.kaertchen.some(k => k.trim()));
 
   // Neuer Block: Timer auf dessen Laenge stellen, aber nie einen laufenden Timer anfassen.
-  // Neue Uhren nur, wenn keine laeuft. Laeuft eine, holt uhr() das nach, sobald sie steht.
+  // Neue Uhren, wenn sich Block oder Dauern aendern. Eine von Hand gestartete Uhr bleibt,
+  // bis sie steht; die mit der Uhrzeit gekoppelte stellt sich nach dem Neubau selbst wieder ein.
   blockJetzt = uhrenSchluessel(i);
-  if (blockJetzt !== uhrenFuer && !takt) neuerTimer();
+  if (blockJetzt !== uhrenFuer && (!takt || gekoppelt)) neuerTimer();
   zeichneTimer();
   einpassen();
 }
@@ -346,16 +352,16 @@ const knopfText = t => document.querySelectorAll('.timer .start').forEach(k => k
 
 function baueUhren(i){
   const b = E.bloecke[i], mods = imBlock(i), dauern = dauernIm(i), mehrere = dauern.length > 1;
+  // Die Pruefungen an einer Uhr; ohne Module eine Uhr in Gruen.
+  const amRing = d => { const a = mods.filter(m => modulDauer(m, b) === d); return a.length ? a : [{farbe: ''}]; };
   document.body.classList.toggle('mehrere', mehrere);
-  // Ab drei Uhren wandert die Uhrzeit in die Reihe der Uhren; der Rest steht darunter.
-  const drei = dauern.length > 2, zeit = document.querySelector('.zeit');
-  document.body.classList.toggle('drei', drei);
-  if (drei) $('uhren').after(zeit); else $('rechts').prepend(zeit);
+  // Ab drei Uhren stehen sie im Raster 2x2.
+  document.body.classList.toggle('drei', dauern.length > 2);
   $('uhren').innerHTML = dauern.map((d, n) => `
     <section class="karte timer" data-n="${n}">
       <div class="ring">
         <svg viewBox="0 0 100 100"><circle class="bahn" cx="50" cy="50" r="45"/>
-          <circle class="rest" cx="50" cy="50" r="45" pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="0"/></svg>
+          ${amRing(d).map(m => `<circle class="rest" cx="50" cy="50" r="45" pathLength="1000" data-farbe="${esc(m.farbe)}"/>`).join('')}</svg>
         <div class="zahl"><b></b><span></span></div>
       </div>
       ${mehrere ? `<div class="wer">${mods.filter(m => modulDauer(m, b) === d).map(m => `<span style="--m:${esc(m.farbe)}">${esc(m.kuerzel || m.name)}</span>`).join('')}</div>` : ''}
@@ -368,7 +374,7 @@ function baueUhren(i){
     </section>`).join('');
   uhren = dauern.map((d, n) => {
     const el = $('uhren').children[n];
-    return {dauer: d, extra: 0, ring: el.querySelector('.rest'), zahl: el.querySelector('.zahl b'), status: el.querySelector('.zahl span')};
+    return {dauer: d, extra: 0, ringe: [...el.querySelectorAll('.rest')], zahl: el.querySelector('.zahl b'), status: el.querySelector('.zahl span')};
   });
   basis = dauern.at(-1) * 60;
 }
@@ -379,8 +385,14 @@ function zeichneTimer(){
   for (const u of uhren) {
     const r = restVon(u), voll = Math.max(u.dauer * 60 + u.extra, 60);
     u.zahl.textContent = mmss(r);
-    u.ring.style.strokeDashoffset = 1000 * (1 - Math.min(1, Math.max(0, r) / voll));
-    u.ring.style.stroke = r <= 0 ? 'var(--rot)' : r <= 600 ? 'var(--orange)' : 'var(--gruen)';
+    // Der Rest des Rings ist in die Farben der Pruefungen geteilt; die letzten 10 Minuten orange, danach rot.
+    const bogen = 1000 * Math.min(1, Math.max(0, r) / voll), n = u.ringe.length;
+    u.ringe.forEach((c, i) => {
+      c.style.strokeDasharray = `${bogen / n} 3000`;
+      c.style.strokeDashoffset = -bogen * i / n;
+      c.style.strokeLinecap = n > 1 ? 'butt' : 'round';
+      c.style.stroke = r <= 0 ? 'var(--rot)' : r <= 600 ? 'var(--orange)' : (c.dataset.farbe || 'var(--gruen)');
+    });
     u.status.textContent = r <= 0 && gestartet ? 'Zeit ist um'
       : ende ? 'Ende ' + hhmm(new Date(Date.now() + r * 1000 + versatz))
       : gestartet ? 'angehalten' : vorStart ? 'Beginn ' + vorStart : 'bereit';
@@ -428,7 +440,7 @@ function uhr(){
   $('jetzt').textContent = hhmm(jetzt());
   const i = aktuellerBlock();
   const k = uhrenSchluessel(i);
-  if (k !== blockJetzt || (k !== uhrenFuer && !takt) || $('slot').dataset.tag !== iso(jetzt())) { zeichneSeite(); $('slot').dataset.tag = iso(jetzt()); }
+  if (k !== blockJetzt || (k !== uhrenFuer && (!takt || gekoppelt)) || $('slot').dataset.tag !== iso(jetzt())) { zeichneSeite(); $('slot').dataset.tag = iso(jetzt()); }
   synchron();
 }
 
@@ -440,6 +452,13 @@ const neueId = () => 'm' + Math.random().toString(36).slice(2, 8);
 function baueDialog(){
   const vordruckWahl = Object.entries(VORDRUCKE).map(([k, v]) => `<option value="${k}" ${k === (E.vordruck || VORGABE.vordruck) ? 'selected' : ''}>${esc(v.name)}</option>`).join('');
 
+  // Eine Liste von Hilfsmitteln; l ist 'alle' oder der Index des Moduls.
+  const zeilen = (liste, l, beispiel) => liste.map((h, hi) => `
+        <div class="eintrag">
+          <button type="button" class="art ${h.art}" data-tat="art" data-m="${l}" data-h="${hi}" title="umschalten">${{ja:'✓', nein:'✗', hinweis:'→'}[h.art]}</button>
+          <input data-m="${l}" data-h="${hi}" value="${esc(h.text)}" placeholder="${beispiel}">
+          <button type="button" class="x" data-tat="zeileWeg" data-m="${l}" data-h="${hi}" title="Zeile entfernen">✕</button>
+        </div>`).join('') + `<button type="button" class="d" data-tat="zeileDazu" data-m="${l}">+ Zeile</button>`;
   const module = E.module.map((m, mi) => `
     <div class="modul" style="--m:${esc(m.farbe)}">
       <div class="zeile">
@@ -449,14 +468,8 @@ function baueDialog(){
         <label>Dauer (Min.)<input type="number" min="1" max="600" data-m="${mi}" data-f="dauer" value="${m.dauer || ''}" placeholder="wie Block" style="width:96px"></label>
         <button type="button" class="x" data-tat="modulWeg" data-m="${mi}" title="Modul entfernen">✕</button>
       </div>
-      <div class="hilfe">Hilfsmittel, eine Zeile pro Eintrag. Das Zeichen links umschalten: ✓ erlaubt · ✗ nicht erlaubt · → Hinweis.</div>
-      ${m.hilfsmittel.map((h, hi) => `
-        <div class="eintrag">
-          <button type="button" class="art ${h.art}" data-tat="art" data-m="${mi}" data-h="${hi}" title="umschalten">${{ja:'✓', nein:'✗', hinweis:'→'}[h.art]}</button>
-          <input data-m="${mi}" data-h="${hi}" value="${esc(h.text)}" placeholder="z. B. Taschenrechner">
-          <button type="button" class="x" data-tat="zeileWeg" data-m="${mi}" data-h="${hi}" title="Zeile entfernen">✕</button>
-        </div>`).join('')}
-      <button type="button" class="d" data-tat="zeileDazu" data-m="${mi}">+ Zeile</button>
+      <div class="hilfe">Nur, was für diese Prüfung besonders ist.</div>
+      ${zeilen(m.hilfsmittel, mi, 'z. B. zusätzlich: Formelblatt A4')}
     </div>`).join('');
 
   const bloecke = E.bloecke.map((b, bi) => `
@@ -477,10 +490,14 @@ function baueDialog(){
       <fieldset><legend>Titel</legend>
         <input data-f="titel" value="${esc(E.titel)}" style="width:100%" placeholder="Prüfung Teil A">
         <div class="hilfe">Hinter dem Titel stehen im Kopfstreifen die Namen der Module, die gerade schreiben.</div></fieldset>
-      <fieldset><legend>Module und Hilfsmittel</legend>
-        <div class="hilfe">Mit <b>**fett**</b> hervorheben. Eine Zeile, die mit «zusätzlich:» beginnt, wird automatisch hervorgehoben.
-          Ab drei Prüfungen in einem Block stehen die Hilfsmittel in einem Kasten: Was alle gleich haben, einmal, der Rest mit dem Kürzel davor.
-          Eine eigene Dauer gilt nur für diese Prüfung. Jede Dauer bekommt eine eigene Uhr (höchstens drei passen gut nebeneinander), darunter stehen gross die Kürzel der Prüfungen, die sie betrifft.</div>
+      <fieldset><legend>Hilfsmittel für alle</legend>
+        <div class="hilfe">Eine Zeile pro Eintrag. Das Zeichen links umschalten: ✓ erlaubt · ✗ nicht erlaubt · → Hinweis.
+          Mit <b>**fett**</b> hervorheben; eine Zeile, die mit «zusätzlich:» beginnt, wird von selbst hervorgehoben.</div>
+        ${zeilen(E.alle, 'alle', 'z. B. Taschenrechner')}</fieldset>
+      <fieldset><legend>Module</legend>
+        <div class="hilfe">Bei mehreren Prüfungen steht auf der Folie ein Kasten «Für alle» und je Prüfung ein Kasten mit ihren Besonderheiten.
+          Eine eigene Dauer gilt nur für diese Prüfung. Jede Dauer bekommt eine eigene Uhr (drei passen gut), der Ring in der Farbe der Prüfungen, die sie betrifft.
+          Ein neues Modul wird in alle Blöcke aufgenommen; abwählen geht bei den Blöcken.</div>
         ${module}<button type="button" class="d" data-tat="modulDazu">+ Modul</button></fieldset>
       <fieldset><legend>Blöcke</legend>
         <div class="hilfe">Die Seite wechselt nach der Uhrzeit von selbst zum nächsten Block. Der Timer läuft mit der Uhr: Er beginnt um «Von» und übernimmt die Länge aus Von–Bis, ausser es steht eine eigene da. Start, Pause oder −1/+1 übernehmen von Hand, ↺ koppelt wieder an die Uhrzeit. Ohne Datum gilt ein Block jeden Tag. Tasten 1–9 wählen einen Block, 0 geht zurück zur Uhrzeit.</div>
@@ -509,7 +526,7 @@ form.addEventListener('input', e => {
   if (t.id === 'vordruck') return;
   if (d.k !== undefined) E.kaertchen[d.k] = t.value;
   else if (d.mod) { const b = E.bloecke[d.b]; b.module = t.checked ? [...new Set([...b.module, d.mod])] : b.module.filter(x => x !== d.mod); }
-  else if (d.h !== undefined) E.module[d.m].hilfsmittel[d.h].text = t.value;
+  else if (d.h !== undefined) hListe(d.m)[d.h].text = t.value;
   else if (d.m !== undefined) { E.module[d.m][d.f] = d.f === 'dauer' ? (parseInt(t.value) || null) : t.value; if (d.f === 'farbe') t.closest('.modul').style.setProperty('--m', t.value); }
   else if (d.b !== undefined) {
     const b = E.bloecke[d.b];
@@ -525,21 +542,27 @@ form.addEventListener('change', e => {
   if (t.id === 'vordruck') {
     const v = VORDRUCKE[t.value];
     if (!confirm(`Alle Einstellungen durch den Vordruck «${v.name}» ersetzen?`)) { t.value = E.vordruck || VORGABE.vordruck; return; }
-    E = {...kopie(v.einstellungen), vordruck: t.value}; gewaehlt = null; neuAufbauen();
+    E = auffrischen({...kopie(v.einstellungen), vordruck: t.value}); gewaehlt = null; neuAufbauen();
   }
   else if (d_kuerzelGeaendert(t)) neuAufbauen();
 });
 // Die Modulnamen stehen auch bei den Bloecken; nach dem Tippen dort nachziehen.
 const d_kuerzelGeaendert = t => t.dataset.m !== undefined && (t.dataset.f === 'kuerzel' || t.dataset.f === 'name');
 
+const hListe = l => l === 'alle' ? E.alle : E.module[l].hilfsmittel;
 form.addEventListener('click', e => {
   const t = e.target.closest('[data-tat]'); if (!t) return;
   const d = t.dataset, m = E.module[d.m];
   switch (d.tat) {
-    case 'art': { const h = m.hilfsmittel[d.h]; h.art = {ja: 'nein', nein: 'hinweis', hinweis: 'ja'}[h.art]; break; }
-    case 'zeileDazu': m.hilfsmittel.push({art: 'ja', text: ''}); break;
-    case 'zeileWeg': m.hilfsmittel.splice(d.h, 1); break;
-    case 'modulDazu': E.module.push({id: neueId(), kuerzel: '', name: '', farbe: FARBEN[E.module.length % FARBEN.length], hilfsmittel: [{art: 'ja', text: ''}]}); break;
+    case 'art': { const h = hListe(d.m)[d.h]; h.art = {ja: 'nein', nein: 'hinweis', hinweis: 'ja'}[h.art]; break; }
+    case 'zeileDazu': hListe(d.m).push({art: 'ja', text: ''}); break;
+    case 'zeileWeg': hListe(d.m).splice(d.h, 1); break;
+    case 'modulDazu': {
+      const id = neueId();
+      E.module.push({id, kuerzel: '', name: '', farbe: FARBEN[E.module.length % FARBEN.length], dauer: null, hilfsmittel: []});
+      E.bloecke.forEach(b => b.module.push(id));   // sonst erscheint es nirgends
+      break;
+    }
     case 'modulWeg':
       if (!confirm(`Modul «${m.kuerzel || m.name || 'ohne Namen'}» entfernen?`)) return;
       E.bloecke.forEach(b => b.module = b.module.filter(x => x !== m.id)); E.module.splice(d.m, 1); break;
@@ -549,7 +572,7 @@ form.addEventListener('click', e => {
     case 'kaertchenWeg': E.kaertchen.splice(d.k, 1); break;
     case 'zurueckVorgabe':
       if (!confirm('Alle Änderungen verwerfen und die Vorgabe dieser Datei laden?')) return;
-      E = {...kopie(VORGABE.einstellungen), vordruck: VORGABE.vordruck}; gewaehlt = null; break;
+      E = auffrischen({...kopie(VORGABE.einstellungen), vordruck: VORGABE.vordruck}); gewaehlt = null; break;
     case 'datei': alsDatei(); return;
   }
   neuAufbauen();
