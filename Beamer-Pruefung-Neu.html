@@ -2,7 +2,7 @@
 <html lang="de"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Beamer Prüfung</title>
-<!-- Beamerseite fuer schriftliche Pruefungen. Gebaut von bauen.py aus beamer.src.html und vordrucke.json.
+<!-- Beamerseite fuer schriftliche Pruefungen. Gebaut von bauen.py aus beamer.src.html, katalog.json und vordrucke.json.
      Nicht von Hand aendern: Aenderungen in der Quelle machen und neu bauen.
      Bedienung: Leertaste = Start/Pause, E = Einstellungen, F = Vollbild,
      1-9 = Block waehlen, 0 = Block wieder nach Uhrzeit. Testhaken: ?uhr=15:20&datum=2026-10-30 -->
@@ -143,6 +143,8 @@ input[type=color]{padding:1px;width:44px;height:32px}
 .block input[type=number]{width:80px}
 .modwahl{display:flex;gap:10px;flex-wrap:wrap;align-self:center;font-size:14px}
 .modwahl label{flex-direction:row;align-items:center;gap:4px;color:var(--tinte);font-size:14px}
+.modwahl.liste{margin:4px 0 8px;gap:8px 18px}
+.modwahl.liste label{font-size:15px;border:1px solid var(--linie);border-radius:8px;padding:5px 10px;background:#fff;cursor:pointer}
 button.d{font:600 14px var(--druck);color:var(--tinte);background:var(--creme);border:1px solid var(--linie);border-radius:8px;padding:6px 12px;cursor:pointer}
 button.d:hover{border-color:var(--tinte)}
 button.d.haupt{background:#2E7D32;border-color:#2E7D32;color:#fff}
@@ -164,15 +166,15 @@ button.x:hover{color:var(--rot)}
 </div>
 </main>
 <dialog id="dialog"><form method="dialog" id="formular"></form></dialog>
-<script type="application/json" id="vordrucke">{"teil-a-hs26":{"name":"Teil A HS26 · MA01.03 / MA01.07","einstellungen":{"titel":"Prüfung Teil A","alle":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"ja","text":"Taschenrechner"}],"module":[{"id":"m1","kuerzel":"MA01.03","name":"Form und Raum","farbe":"#0065a9","hilfsmittel":[{"art":"nein","text":"keine Unterlagen"}],"dauer":null},{"id":"m2","kuerzel":"MA01.07","name":"Daten und Zufall","farbe":"#9867a5","hilfsmittel":[{"art":"ja","text":"zusätzlich: Formelblatt A4, einseitig, handgeschrieben"}],"dauer":null}],"bloecke":[{"datum":"2026-10-30","von":"10:15","bis":"11:45","dauer":null,"module":["m1"]},{"datum":"2026-10-30","von":"13:15","bis":"14:45","dauer":null,"module":["m1"]},{"datum":"2026-10-30","von":"15:15","bis":"16:45","dauer":null,"module":["m1","m2"]},{"datum":"2026-11-03","von":"08:15","bis":"09:45","dauer":null,"module":["m1"]}],"satzEins":"Setzen Sie sich an einen Platz, an dem **Prüfungsblätter liegen**.","satzMehrere":"Setzen Sie sich an einen Platz mit den **passenden Prüfungsblättern**. {module} sitzen abwechselnd.","kaertchen":["Jedes Blatt: [Name · A1 · S. 2/3]","Handy in die Tasche","Getränke und Snacks erlaubt"]}},"teil-b-hs26":{"name":"Teil B HS26 · MA01.03 / MA01.07","einstellungen":{"titel":"Prüfung Teil B","alle":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"ja","text":"Taschenrechner"}],"module":[{"id":"m1","kuerzel":"MA01.03","name":"Form und Raum","farbe":"#0065a9","hilfsmittel":[{"art":"nein","text":"keine Unterlagen"}],"dauer":null},{"id":"m2","kuerzel":"MA01.07","name":"Daten und Zufall","farbe":"#9867a5","hilfsmittel":[{"art":"ja","text":"zusätzlich: Formelblatt A4, einseitig, handgeschrieben"}],"dauer":null}],"bloecke":[{"datum":"2026-12-12","von":"09:15","bis":"10:45","dauer":null,"module":["m1"]},{"datum":"2026-12-17","von":"10:15","bis":"11:45","dauer":null,"module":["m2"]}],"satzEins":"Setzen Sie sich an einen Platz, an dem **Prüfungsblätter liegen**.","satzMehrere":"Setzen Sie sich an einen Platz mit den **passenden Prüfungsblättern**. {module} sitzen abwechselnd.","kaertchen":["Jedes Blatt: [Name · A1 · S. 2/3]","Handy in die Tasche","Getränke und Snacks erlaubt"]}},"leer":{"name":"Leere Vorlage","einstellungen":{"titel":"Prüfung","alle":[],"module":[{"id":"m1","kuerzel":"","name":"","farbe":"#0065a9","hilfsmittel":[],"dauer":null}],"bloecke":[{"datum":"","von":"","bis":"","dauer":null,"module":["m1"]}],"satzEins":"","satzMehrere":"","kaertchen":[]}}}</script>
-<script type="application/json" id="vorgabe">{"id":"leer-74449772","vordruck":"leer","einstellungen":{"titel":"Prüfung","alle":[],"module":[{"id":"m1","kuerzel":"","name":"","farbe":"#0065a9","hilfsmittel":[],"dauer":null}],"bloecke":[{"datum":"","von":"","bis":"","dauer":null,"module":["m1"]}],"satzEins":"","satzMehrere":"","kaertchen":[]}}</script>
+<script type="application/json" id="katalog">{"hausregeln":{"alle":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"ja","text":"Taschenrechner"}],"satzEins":"Setzen Sie sich an einen Platz, an dem **Prüfungsblätter liegen**.","satzMehrere":"Setzen Sie sich an einen Platz mit den **passenden Prüfungsblättern**. {module} sitzen abwechselnd.","kaertchen":["Jedes Blatt: [Name · A1 · S. 2/3]","Handy in die Tasche","Getränke und Snacks erlaubt"]},"module":[{"id":"ma0103","kuerzel":"MA01.03","name":"Form und Raum","farbe":"#0065a9","dauer":null,"hilfsmittel":[{"art":"nein","text":"keine Unterlagen"}]},{"id":"ma0107","kuerzel":"MA01.07","name":"Daten und Zufall","farbe":"#9867a5","dauer":null,"hilfsmittel":[{"art":"ja","text":"zusätzlich: Formelblatt A4, einseitig, handgeschrieben"}]}]}</script>
+<script type="application/json" id="vorgabe">{"id":"neu-9ec15ffc","vordruck":"neu","einstellungen":{"titel":"Prüfung","alle":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"},{"art":"ja","text":"Taschenrechner"}],"module":[],"bloecke":[{"datum":"","von":"","bis":"","dauer":null,"module":[]}],"satzEins":"Setzen Sie sich an einen Platz, an dem **Prüfungsblätter liegen**.","satzMehrere":"Setzen Sie sich an einen Platz mit den **passenden Prüfungsblättern**. {module} sitzen abwechselnd.","kaertchen":["Jedes Blatt: [Name · A1 · S. 2/3]","Handy in die Tasche","Getränke und Snacks erlaubt"]}}</script>
 <script type="application/json" id="beispiele">[{"titel":"Nachprüfungen","alle":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"}],"module":[{"kuerzel":"Sek I a","name":"Sek I regulär A","farbe":"#0065a9","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1a"}],"bloecke":[{"datum":"","von":"10:15","bis":"11:45","dauer":null,"module":["s1a"]}],"satzEins":"Setzen Sie sich an einen Platz, an dem **Prüfungsblätter liegen**.","satzMehrere":"Setzen Sie sich an einen Platz mit den **passenden Prüfungsblättern**. {module} sitzen abwechselnd.","kaertchen":["Jedes Blatt: [Name · A1 · S. 2/3]","Handy in die Tasche","Getränke und Snacks erlaubt"]},{"titel":"Nachprüfungen","alle":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"}],"module":[{"kuerzel":"Sek I a","name":"Sek I regulär A","farbe":"#0065a9","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1a"},{"kuerzel":"Sek I b","name":"Sek I regulär B","farbe":"#9867a5","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"ja","text":"zusätzlich: Formelblatt A4, einseitig, handgeschrieben"}],"id":"s1b"}],"bloecke":[{"datum":"","von":"10:15","bis":"11:45","dauer":null,"module":["s1a","s1b"]}],"satzEins":"Setzen Sie sich an einen Platz, an dem **Prüfungsblätter liegen**.","satzMehrere":"Setzen Sie sich an einen Platz mit den **passenden Prüfungsblättern**. {module} sitzen abwechselnd.","kaertchen":["Jedes Blatt: [Name · A1 · S. 2/3]","Handy in die Tasche","Getränke und Snacks erlaubt"]},{"titel":"Nachprüfungen","alle":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"}],"module":[{"kuerzel":"Sek I a","name":"Sek I regulär A","farbe":"#0065a9","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1a"},{"kuerzel":"Sek I b","name":"Sek I regulär B","farbe":"#9867a5","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"ja","text":"zusätzlich: Formelblatt A4, einseitig, handgeschrieben"}],"id":"s1b"},{"kuerzel":"GJ a","name":"Grundjahr","farbe":"#935100","dauer":60,"hilfsmittel":[{"art":"nein","text":"kein Taschenrechner"}],"id":"gja"}],"bloecke":[{"datum":"","von":"10:15","bis":"11:45","dauer":null,"module":["s1a","s1b","gja"]}],"satzEins":"Setzen Sie sich an einen Platz, an dem **Prüfungsblätter liegen**.","satzMehrere":"Setzen Sie sich an einen Platz mit den **passenden Prüfungsblättern**. {module} sitzen abwechselnd.","kaertchen":["Jedes Blatt: [Name · A1 · S. 2/3]","Handy in die Tasche","Getränke und Snacks erlaubt"]},{"titel":"Nachprüfungen","alle":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"}],"module":[{"kuerzel":"Sek I a","name":"Sek I regulär A","farbe":"#0065a9","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1a"},{"kuerzel":"Sek I b","name":"Sek I regulär B","farbe":"#9867a5","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"ja","text":"zusätzlich: Formelblatt A4, einseitig, handgeschrieben"}],"id":"s1b"},{"kuerzel":"Sek I c","name":"Sek I anderes Semester A","farbe":"#007d57","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1c"},{"kuerzel":"Sek I d","name":"Sek I anderes Semester B","farbe":"#a6083d","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"}],"id":"s1d"}],"bloecke":[{"datum":"","von":"10:15","bis":"11:45","dauer":null,"module":["s1a","s1b","s1c","s1d"]}],"satzEins":"Setzen Sie sich an einen Platz, an dem **Prüfungsblätter liegen**.","satzMehrere":"Setzen Sie sich an einen Platz mit den **passenden Prüfungsblättern**. {module} sitzen abwechselnd.","kaertchen":["Jedes Blatt: [Name · A1 · S. 2/3]","Handy in die Tasche","Getränke und Snacks erlaubt"]},{"titel":"Nachprüfungen","alle":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"}],"module":[{"kuerzel":"Sek I a","name":"Sek I regulär A","farbe":"#0065a9","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1a"},{"kuerzel":"Sek I b","name":"Sek I regulär B","farbe":"#9867a5","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"ja","text":"zusätzlich: Formelblatt A4, einseitig, handgeschrieben"}],"id":"s1b"},{"kuerzel":"Sek I c","name":"Sek I anderes Semester A","farbe":"#007d57","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1c"},{"kuerzel":"Sek I d","name":"Sek I anderes Semester B","farbe":"#a6083d","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"}],"id":"s1d"},{"kuerzel":"GJ a","name":"Grundjahr","farbe":"#935100","dauer":60,"hilfsmittel":[{"art":"nein","text":"kein Taschenrechner"}],"id":"gja"}],"bloecke":[{"datum":"","von":"10:15","bis":"11:45","dauer":null,"module":["s1a","s1b","s1c","s1d","gja"]}],"satzEins":"Setzen Sie sich an einen Platz, an dem **Prüfungsblätter liegen**.","satzMehrere":"Setzen Sie sich an einen Platz mit den **passenden Prüfungsblättern**. {module} sitzen abwechselnd.","kaertchen":["Jedes Blatt: [Name · A1 · S. 2/3]","Handy in die Tasche","Getränke und Snacks erlaubt"]},{"titel":"Nachprüfungen","alle":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"}],"module":[{"kuerzel":"Sek I a","name":"Sek I regulär A","farbe":"#0065a9","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1a"},{"kuerzel":"Sek I b","name":"Sek I regulär B","farbe":"#9867a5","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"ja","text":"zusätzlich: Formelblatt A4, einseitig, handgeschrieben"}],"id":"s1b"},{"kuerzel":"Sek I c","name":"Sek I anderes Semester A","farbe":"#007d57","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1c"},{"kuerzel":"Sek I d","name":"Sek I anderes Semester B","farbe":"#a6083d","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"}],"id":"s1d"},{"kuerzel":"GJ a","name":"Grundjahr","farbe":"#935100","dauer":60,"hilfsmittel":[{"art":"nein","text":"kein Taschenrechner"}],"id":"gja"},{"kuerzel":"Prim","name":"Primarstufe","farbe":"#2e7d32","dauer":45,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"}],"id":"pri"}],"bloecke":[{"datum":"","von":"10:15","bis":"11:45","dauer":null,"module":["s1a","s1b","s1c","s1d","gja","pri"]}],"satzEins":"Setzen Sie sich an einen Platz, an dem **Prüfungsblätter liegen**.","satzMehrere":"Setzen Sie sich an einen Platz mit den **passenden Prüfungsblättern**. {module} sitzen abwechselnd.","kaertchen":["Jedes Blatt: [Name · A1 · S. 2/3]","Handy in die Tasche","Getränke und Snacks erlaubt"]},{"titel":"Nachprüfungen","alle":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"}],"module":[{"kuerzel":"Sek I a","name":"Sek I regulär A","farbe":"#0065a9","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1a"},{"kuerzel":"Sek I b","name":"Sek I regulär B","farbe":"#9867a5","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"ja","text":"zusätzlich: Formelblatt A4, einseitig, handgeschrieben"}],"id":"s1b"},{"kuerzel":"Sek I c","name":"Sek I anderes Semester A","farbe":"#007d57","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1c"},{"kuerzel":"Sek I d","name":"Sek I anderes Semester B","farbe":"#a6083d","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"}],"id":"s1d"},{"kuerzel":"GJ a","name":"Grundjahr","farbe":"#935100","dauer":60,"hilfsmittel":[{"art":"nein","text":"kein Taschenrechner"}],"id":"gja"},{"kuerzel":"GJ b","name":"Grundjahr, anderes Semester","farbe":"#6a1b9a","dauer":60,"hilfsmittel":[{"art":"nein","text":"kein Taschenrechner"}],"id":"gjb"},{"kuerzel":"Prim","name":"Primarstufe","farbe":"#2e7d32","dauer":45,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"}],"id":"pri"}],"bloecke":[{"datum":"","von":"10:15","bis":"11:45","dauer":null,"module":["s1a","s1b","s1c","s1d","gja","gjb","pri"]}],"satzEins":"Setzen Sie sich an einen Platz, an dem **Prüfungsblätter liegen**.","satzMehrere":"Setzen Sie sich an einen Platz mit den **passenden Prüfungsblättern**. {module} sitzen abwechselnd.","kaertchen":["Jedes Blatt: [Name · A1 · S. 2/3]","Handy in die Tasche","Getränke und Snacks erlaubt"]},{"titel":"Nachprüfungen","alle":[{"art":"ja","text":"Stifte, Lineal, Geodreieck, Zirkel"}],"module":[{"kuerzel":"Sek I a","name":"Sek I regulär A","farbe":"#0065a9","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1a"},{"kuerzel":"Sek I b","name":"Sek I regulär B","farbe":"#9867a5","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"ja","text":"zusätzlich: Formelblatt A4, einseitig, handgeschrieben"}],"id":"s1b"},{"kuerzel":"Sek I c","name":"Sek I anderes Semester A","farbe":"#007d57","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"},{"art":"nein","text":"keine Unterlagen"}],"id":"s1c"},{"kuerzel":"Sek I d","name":"Sek I anderes Semester B","farbe":"#a6083d","dauer":null,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"}],"id":"s1d"},{"kuerzel":"GJ a","name":"Grundjahr","farbe":"#935100","dauer":60,"hilfsmittel":[{"art":"nein","text":"kein Taschenrechner"}],"id":"gja"},{"kuerzel":"Prim","name":"Primarstufe","farbe":"#2e7d32","dauer":45,"hilfsmittel":[{"art":"ja","text":"Taschenrechner"}],"id":"pri"},{"kuerzel":"Prim b","name":"Primarstufe, anderes Semester","farbe":"#00838f","dauer":30,"hilfsmittel":[{"art":"nein","text":"kein Taschenrechner"}],"id":"prb"}],"bloecke":[{"datum":"","von":"10:15","bis":"11:45","dauer":null,"module":["s1a","s1b","s1c","s1d","gja","pri","prb"]}],"satzEins":"Setzen Sie sich an einen Platz, an dem **Prüfungsblätter liegen**.","satzMehrere":"Setzen Sie sich an einen Platz mit den **passenden Prüfungsblättern**. {module} sitzen abwechselnd.","kaertchen":["Jedes Blatt: [Name · A1 · S. 2/3]","Handy in die Tasche","Getränke und Snacks erlaubt"]}]</script>
 <script>
 // Die Seite, wie sie geladen wurde - vor jedem Rendern abgegriffen. Daraus entsteht «Als Datei speichern».
 const ROH = '<!doctype html>\n' + document.documentElement.outerHTML;
 const $ = id => document.getElementById(id);
 const json = id => JSON.parse($(id).textContent);
-const VORDRUCKE = json('vordrucke'), VORGABE = json('vorgabe');
+const KATALOG = json('katalog'), VORGABE = json('vorgabe');
 // Je Vordruck ein eigener Speicher, damit Teil A und Teil B sich nicht gegenseitig ueberschreiben.
 const SPEICHER = 'frieder-beamer-pruefung:' + (VORGABE.vordruck || 'eigen');
 const kopie = o => JSON.parse(JSON.stringify(o));
@@ -450,7 +452,9 @@ const FARBEN = ['#0065a9', '#9867a5', '#007d57', '#a6083d', '#935100', '#6a1b9a'
 const neueId = () => 'm' + Math.random().toString(36).slice(2, 8);
 
 function baueDialog(){
-  const vordruckWahl = Object.entries(VORDRUCKE).map(([k, v]) => `<option value="${k}" ${k === (E.vordruck || VORGABE.vordruck) ? 'selected' : ''}>${esc(v.name)}</option>`).join('');
+  // Die Module aus der Liste zum Ankreuzen; angekreuzt ist, was in dieser Pruefung vorkommt.
+  const liste = KATALOG.module.map(k => `<label><input type="checkbox" data-katalog="${k.id}" ${E.module.some(m => m.id === k.id) ? 'checked' : ''}>
+      <b style="color:${esc(k.farbe)}">${esc(k.kuerzel)}</b> ${esc(k.name)}</label>`).join('');
 
   // Eine Liste von Hilfsmitteln; l ist 'alle' oder der Index des Moduls.
   const zeilen = (liste, l, beispiel) => liste.map((h, hi) => `
@@ -485,23 +489,26 @@ function baueDialog(){
 
   form.innerHTML = `
     <div class="d-kopf"><h2>Einstellungen</h2>
-      <label style="flex-direction:row;align-items:center;gap:8px;font-size:14px">Vordruck <select id="vordruck">${vordruckWahl}</select></label></div>
+      <button type="button" class="d" data-tat="neu" title="Alles leeren; Hilfsmittel für alle, Satz und Kärtchen kommen aus den Hausregeln">Neu beginnen</button></div>
     <div class="d-inhalt">
       <fieldset><legend>Titel</legend>
         <input data-f="titel" value="${esc(E.titel)}" style="width:100%" placeholder="Prüfung Teil A">
         <div class="hilfe">Hinter dem Titel stehen im Kopfstreifen die Namen der Module, die gerade schreiben.</div></fieldset>
-      <fieldset><legend>Hilfsmittel für alle</legend>
-        <div class="hilfe">Eine Zeile pro Eintrag. Das Zeichen links umschalten: ✓ erlaubt · ✗ nicht erlaubt · → Hinweis.
-          Mit <b>**fett**</b> hervorheben; eine Zeile, die mit «zusätzlich:» beginnt, wird von selbst hervorgehoben.</div>
-        ${zeilen(E.alle, 'alle', 'z. B. Taschenrechner')}</fieldset>
       <fieldset><legend>Module</legend>
-        <div class="hilfe">Bei mehreren Prüfungen steht auf der Folie ein Kasten «Für alle» und je Prüfung ein Kasten mit ihren Besonderheiten.
+        <div class="modwahl liste">${liste}</div>
+        <div class="hilfe">Ankreuzen übernimmt das Modul mit seinen Besonderheiten aus der Modulliste. Fehlt eins, mit «+ Modul» von Hand eintragen;
+          damit es künftig in der Liste steht, Frieder Bescheid geben.
+          Bei mehreren Prüfungen steht auf der Folie ein Kasten «Für alle» und je Prüfung ein Kasten mit ihren Besonderheiten.
           Eine eigene Dauer gilt nur für diese Prüfung. Jede Dauer bekommt eine eigene Uhr (drei passen gut), der Ring in der Farbe der Prüfungen, die sie betrifft.
           Ein neues Modul wird in alle Blöcke aufgenommen; abwählen geht bei den Blöcken.</div>
         ${module}<button type="button" class="d" data-tat="modulDazu">+ Modul</button></fieldset>
       <fieldset><legend>Blöcke</legend>
         <div class="hilfe">Die Seite wechselt nach der Uhrzeit von selbst zum nächsten Block. Der Timer läuft mit der Uhr: Er beginnt um «Von» und übernimmt die Länge aus Von–Bis, ausser es steht eine eigene da. Start, Pause oder −1/+1 übernehmen von Hand, ↺ koppelt wieder an die Uhrzeit. Ohne Datum gilt ein Block jeden Tag. Tasten 1–9 wählen einen Block, 0 geht zurück zur Uhrzeit.</div>
         ${bloecke}<button type="button" class="d" data-tat="blockDazu" style="margin-top:8px">+ Block</button></fieldset>
+      <fieldset><legend>Hilfsmittel für alle</legend>
+        <div class="hilfe">Eine Zeile pro Eintrag. Das Zeichen links umschalten: ✓ erlaubt · ✗ nicht erlaubt · → Hinweis.
+          Mit <b>**fett**</b> hervorheben; eine Zeile, die mit «zusätzlich:» beginnt, wird von selbst hervorgehoben.</div>
+        ${zeilen(E.alle, 'alle', 'z. B. Taschenrechner')}</fieldset>
       <fieldset><legend>Satz zum Hinsetzen</legend>
         <label style="display:flex;margin-bottom:8px">wenn ein Modul schreibt<textarea data-f="satzEins">${esc(E.satzEins)}</textarea></label>
         <label style="display:flex">wenn mehrere Module schreiben<textarea data-f="satzMehrere">${esc(E.satzMehrere)}</textarea></label>
@@ -523,7 +530,7 @@ function neuAufbauen(){ const y = form.querySelector('.d-inhalt')?.scrollTop; ba
 
 form.addEventListener('input', e => {
   const t = e.target, d = t.dataset;
-  if (t.id === 'vordruck') return;
+  if (t.dataset.katalog) return;
   if (d.k !== undefined) E.kaertchen[d.k] = t.value;
   else if (d.mod) { const b = E.bloecke[d.b]; b.module = t.checked ? [...new Set([...b.module, d.mod])] : b.module.filter(x => x !== d.mod); }
   else if (d.h !== undefined) hListe(d.m)[d.h].text = t.value;
@@ -539,10 +546,17 @@ form.addEventListener('input', e => {
 form.addEventListener('change', e => {
   const t = e.target;
   // Die Auswahl zeigt immer, welcher Vordruck gerade gilt; ein Wechsel greift sofort.
-  if (t.id === 'vordruck') {
-    const v = VORDRUCKE[t.value];
-    if (!confirm(`Alle Einstellungen durch den Vordruck «${v.name}» ersetzen?`)) { t.value = E.vordruck || VORGABE.vordruck; return; }
-    E = auffrischen({...kopie(v.einstellungen), vordruck: t.value}); gewaehlt = null; neuAufbauen();
+  // Modul aus der Liste an- oder abwaehlen: kommt in alle Bloecke bzw. verschwindet aus allen.
+  if (t.dataset.katalog) {
+    const id = t.dataset.katalog;
+    if (t.checked) {
+      E.module.push(kopie(KATALOG.module.find(k => k.id === id)));
+      E.bloecke.forEach(b => b.module.push(id));
+    } else {
+      E.module = E.module.filter(m => m.id !== id);
+      E.bloecke.forEach(b => b.module = b.module.filter(x => x !== id));
+    }
+    neuAufbauen();
   }
   else if (d_kuerzelGeaendert(t)) neuAufbauen();
 });
@@ -570,9 +584,13 @@ form.addEventListener('click', e => {
     case 'blockWeg': E.bloecke.splice(d.b, 1); gewaehlt = null; break;
     case 'kaertchenDazu': E.kaertchen.push(''); break;
     case 'kaertchenWeg': E.kaertchen.splice(d.k, 1); break;
+    case 'neu':
+      if (!confirm('Alles leeren und neu beginnen? Hilfsmittel für alle, Satz und Kärtchen kommen aus den Hausregeln.')) return;
+      E = {titel: 'Prüfung', ...kopie(KATALOG.hausregeln), module: [], bloecke: [{datum: '', von: '', bis: '', dauer: null, module: []}]};
+      gewaehlt = null; break;
     case 'zurueckVorgabe':
       if (!confirm('Alle Änderungen verwerfen und die Vorgabe dieser Datei laden?')) return;
-      E = auffrischen({...kopie(VORGABE.einstellungen), vordruck: VORGABE.vordruck}); gewaehlt = null; break;
+      E = auffrischen(kopie(VORGABE.einstellungen)); gewaehlt = null; break;
     case 'datei': alsDatei(); return;
   }
   neuAufbauen();
